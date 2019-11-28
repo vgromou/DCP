@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">DCP</string>
+    <string name="arccos">cos<small><small><sup>-1</sup></small></small></string>
+    <string name="arctg">tg<small><small><sup>-1</sup></small></small></string>
+    <string name="arcsin">sin<small><small><sup>-1</sup></small></small></string>
+    <string name="arcctg">ctg<small><small><sup>-1</sup></small></small></string>
+    <string name="delete">⇐</string>
+    <string name="divide">÷</string>
+    <string name="multiply">×</string>
+    <string name="substract">−</string>
+    <string name="x">x</string>
+    <string name="opening_bracket">(</string>
+    <string name="closing_bracket">)</string>
+    <string name="equal">=</string>
+    <string name="add">+</string>
+    <string name="cth">cth</string>
+    <string name="ch">ch</string>
+    <string name="log">log</string>
+    <string name="th">th</string>
+    <string name="sh">sh</string>
+    <string name="power">^</string>
+    <string name="exponent">e^</string>
+    <string name="ctg">ctg</string>
+    <string name="sin">sin</string>
+    <string name="ln">ln</string>
+    <string name="tg">tg</string>
+    <string name="cos">cos</string>
+    <string name="main">main</string>
+    <string name="more">more</string>
+    <string name="digits">123</string>
+    <string name="menu"><b>⋮</b></string>
 </resources>
