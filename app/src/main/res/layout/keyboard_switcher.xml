@@ -6,6 +6,9 @@
               android:background="@android:color/transparent"
 >
     <Button
+
+
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -14,6 +17,9 @@
             android:layout_weight="1"
     />
     <Button
+
+
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"
@@ -22,6 +28,9 @@
             android:layout_weight="1"
     />
     <Button
+
+
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAllCaps="false"

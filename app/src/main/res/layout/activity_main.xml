@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +9,7 @@
         tools:context=".MainActivity"
         android:background="#E0E0E0">
     <Button
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="40dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -20,7 +21,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintEnd_toEndOf="parent"/>
     <Button
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="25dp"
             android:layout_width="26dp"
             android:layout_height="wrap_content"
@@ -46,6 +47,7 @@
     />
 
     <RelativeLayout
+            android:id="@+id/keyboard_panel"
             android:elevation="15dp"
             android:layout_width="match_parent"
             android:layout_height="480dp"
@@ -53,26 +55,42 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="0dp"
             app:layout_constraintVertical_bias="1.0"
-            android:background="@drawable/rounded_top_corners"
+            android:background="@drawable/keyboard_panel"
     >
 
         <View
+                android:id="@+id/swipe_button"
                 android:layout_marginTop="3dp"
                 android:layout_width="50dp"
                 android:layout_height="5dp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/slide_down_button"/>
+                android:background="@drawable/swipe_button"
+        />
         <include layout="@layout/keyboard_switcher"
                  android:layout_width="match_parent"
                  android:layout_height="20dp"
-                 android:layout_marginTop="13dp"
+                 android:layout_marginTop="12dp"
         >
         </include>
-        <include layout="@layout/digits_keyboard_layout"
-                 android:layout_height="match_parent"
-                 android:layout_width="match_parent"
-                 android:layout_marginTop="35dp"
-        >
-        </include>
+        <RelativeLayout
+                android:id="@+id/keyboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <include layout="@layout/more_keyboard_layout"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="35dp"
+            />
+            <include layout="@layout/digits_keyboard_layout"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="35dp"/>
+            <include layout="@layout/main_keyboard_layout"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="35dp"
+            />
+        </RelativeLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

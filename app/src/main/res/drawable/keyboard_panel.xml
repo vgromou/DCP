@@ -10,6 +10,7 @@
             android:bottom="4dp"
             android:right="4dp"
     />
-    <solid android:color="@android:color/white"></solid>
+    <solid android:color="@android:color/white">
+    </solid>
 </shape>
 

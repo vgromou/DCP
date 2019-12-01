@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="100dp"
+        android:layout_height="85dp"
+        android:background="@android:color/background_light"
+        android:textAllCaps="false"
+        android:text="@string/closing_bracket"
+        android:textSize="30sp"
+        android:id="@+id/button_closing_bracket">
+
+</Button>

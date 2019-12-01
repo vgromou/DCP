@@ -13,38 +13,46 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <Button
+
+
+
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@drawable/rounded_left_up"
             android:textAllCaps="false"
             android:text="1"
             android:textSize="30sp"
-            android:id="@+id/cos"
+            android:id="@+id/digit_1"
     />
     <Button
+
+
+
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
             android:textAllCaps="false"
             android:text="2"
             android:textSize="30sp"
+            android:id="@+id/digit_2"
     />
     <Button
+
+
+
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@drawable/rounded_right_up"
             android:textAllCaps="false"
             android:text="3"
             android:textSize="30sp"
+            android:id="@+id/digit_3"
     />
-    <Button
-            android:layout_marginStart="5dp"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            android:background="@drawable/rounded_left_up"
-            android:textAllCaps="false"
-            android:text="@string/delete"
-            android:textSize="30sp"
+    <include layout="@layout/delete"
+             android:layout_marginStart="5dp"
+             android:layout_width="100dp"
+             android:layout_height="85dp"
+             android:id="@+id/digit_include_delete"
     />
     <Button
             android:layout_width="100dp"
@@ -55,6 +63,7 @@
             android:textSize="30sp"
             android:layout_row="1"
             android:layout_column="0"
+            android:id="@+id/digit_4"
     />
     <Button
             android:layout_width="100dp"
@@ -63,6 +72,7 @@
             android:textAllCaps="false"
             android:text="5"
             android:textSize="30sp"
+            android:id="@+id/digit_5"
     />
     <Button
             android:layout_width="100dp"
@@ -71,15 +81,13 @@
             android:textAllCaps="false"
             android:text="6"
             android:textSize="30sp"
+            android:id="@+id/digit_6"
     />
-    <Button
-            android:layout_marginStart="5dp"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            android:background="@android:color/background_light"
-            android:textAllCaps="false"
-            android:text="@string/divide"
-            android:textSize="30sp"
+    <include layout="@layout/divide"
+             android:layout_marginStart="5dp"
+             android:layout_width="100dp"
+             android:layout_height="85dp"
+             android:id="@+id/digit_include_divide"
     />
     <Button
             android:layout_width="100dp"
@@ -90,31 +98,37 @@
             android:textSize="30sp"
             android:layout_row="2"
             android:layout_column="0"
+            android:id="@+id/digit_7"
     />
     <Button
+
+
+
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
             android:textAllCaps="false"
             android:text="8"
             android:textSize="30sp"
+            android:id="@+id/digit_8"
     />
     <Button
+
+
+
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
             android:textAllCaps="false"
             android:text="9"
             android:textSize="30sp"
+            android:id="@+id/digit_9"
     />
-    <Button
+    <include layout="@layout/multiply"
             android:layout_marginStart="5dp"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@android:color/background_light"
-            android:textAllCaps="false"
-            android:text="@string/multiply"
-            android:textSize="30sp"
+             android:id="@+id/digit_include_multiply"
     />
     <Button
             android:layout_width="100dp"
@@ -125,6 +139,7 @@
             android:textSize="30sp"
             android:layout_row="3"
             android:layout_column="0"
+            android:id="@+id/button_point"
     />
     <Button
             android:layout_width="100dp"
@@ -133,57 +148,38 @@
             android:textAllCaps="false"
             android:text="0"
             android:textSize="30sp"
+            android:id="@+id/digit_0"
     />
-    <Button
+    <include layout="@layout/x_button"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@android:color/background_light"
-            android:textAllCaps="false"
-            android:text="@string/x"
-            android:textSize="30sp"
+             android:id="@+id/digit_include_x"
     />
-    <Button
+    <include layout="@layout/subtract"
             android:layout_marginStart="5dp"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@android:color/background_light"
-            android:textAllCaps="false"
-            android:text="@string/substract"
-            android:textSize="30sp"
+             android:id="@+id/digit_include_subtract"
     />
-    <Button
+    <include layout="@layout/open_bracket"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@drawable/rounded_left_down"
-            android:textAllCaps="false"
-            android:text="@string/opening_bracket"
-            android:textSize="30sp"
-            android:layout_row="4"
-            android:layout_column="0"/>
-    <Button
+             android:id="@+id/digit_include_open"
+    />
+    <include layout="@layout/close_bracket"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@android:color/background_light"
-            android:textAllCaps="false"
-            android:text="@string/closing_bracket"
-            android:textSize="30sp"
+             android:id="@+id/digit_include_close"
     />
-    <Button
+    <include layout="@layout/calculate_button"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@drawable/rounded_right_down"
-            android:textAllCaps="false"
-            android:text="@string/equal"
-            android:textSize="30sp"
+             android:id="@+id/digit_include_calculate"
     />
-    <Button
+    <include layout="@layout/add_button"
             android:layout_marginStart="5dp"
             android:layout_width="100dp"
             android:layout_height="85dp"
-            android:background="@drawable/rounded_left_down"
-            android:textAllCaps="false"
-            android:text="@string/add"
-            android:textSize="30sp"
-            android:drawableBottom="@android:color/black"
+             android:id="@+id/digit_include_add"
     />
 </GridLayout>

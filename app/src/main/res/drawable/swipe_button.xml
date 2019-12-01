@@ -9,5 +9,7 @@
             android:bottom="4dp"
             android:right="4dp"
     />
-    <solid android:color="#757575"></solid>
+    <solid android:color="@color/swipeButtonColor">
+
+    </solid>
 </shape>
