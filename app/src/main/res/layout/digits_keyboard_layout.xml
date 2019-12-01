@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GridLayout
+        android:id="@+id/keyboard_digits"
         android:alignmentMode="alignBounds"
         android:columnCount="4"
         android:layout_width="wrap_content"
@@ -13,9 +14,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <Button
-
-
-
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@drawable/rounded_left_up"
@@ -25,9 +24,7 @@
             android:id="@+id/digit_1"
     />
     <Button
-
-
-
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -37,9 +34,7 @@
             android:id="@+id/digit_2"
     />
     <Button
-
-
-
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@drawable/rounded_right_up"
@@ -55,6 +50,7 @@
              android:id="@+id/digit_include_delete"
     />
     <Button
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -66,6 +62,7 @@
             android:id="@+id/digit_4"
     />
     <Button
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -75,6 +72,7 @@
             android:id="@+id/digit_5"
     />
     <Button
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -90,6 +88,7 @@
              android:id="@+id/digit_include_divide"
     />
     <Button
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -101,9 +100,7 @@
             android:id="@+id/digit_7"
     />
     <Button
-
-
-
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -113,9 +110,7 @@
             android:id="@+id/digit_8"
     />
     <Button
-
-
-
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -131,6 +126,7 @@
              android:id="@+id/digit_include_multiply"
     />
     <Button
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
@@ -142,6 +138,7 @@
             android:id="@+id/button_point"
     />
     <Button
+            android:onClick="onClick"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"

@@ -4,5 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorTransparent">@android:color/transparent</color>
-    <color name="swipeButtonColor">#757575</color>
+    <color name="swipeButtonTop">#757575</color>
+    <color name="swipeButtonBottom">@color/colorAccent</color>
+    <color name="switchButtonOff">@android:color/black</color>
+    <color name="switchButtonOn">@color/colorAccent</color>
 </resources>

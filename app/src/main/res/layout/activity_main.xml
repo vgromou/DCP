@@ -44,6 +44,7 @@
             android:layout_marginTop="80dp"
             android:textAllCaps="false"
             android:textSize="45sp"
+            android:inputType="textNoSuggestions"
     />
 
     <RelativeLayout
@@ -64,20 +65,24 @@
                 android:layout_width="50dp"
                 android:layout_height="5dp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/swipe_button"
+                android:background="@drawable/swipe_button_top"
         />
         <include layout="@layout/keyboard_switcher"
                  android:layout_width="match_parent"
                  android:layout_height="20dp"
                  android:layout_marginTop="12dp"
-        >
-        </include>
+        />
         <RelativeLayout
-                android:id="@+id/keyboard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                        android:id="@+id/keyboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
             <include layout="@layout/more_keyboard_layout"
+                     android:layout_height="match_parent"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="35dp"
+            />
+            <include layout="@layout/main_keyboard_layout"
                      android:layout_height="match_parent"
                      android:layout_width="match_parent"
                      android:layout_marginTop="35dp"
@@ -86,11 +91,6 @@
                      android:layout_height="match_parent"
                      android:layout_width="match_parent"
                      android:layout_marginTop="35dp"/>
-            <include layout="@layout/main_keyboard_layout"
-                     android:layout_height="match_parent"
-                     android:layout_width="match_parent"
-                     android:layout_marginTop="35dp"
-            />
         </RelativeLayout>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
