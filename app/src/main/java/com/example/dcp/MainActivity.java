@@ -23,6 +23,7 @@ import androidx.core.view.MotionEventCompat;
 
 import static android.os.VibrationEffect.*;
 import static android.view.View.*;
+//TODO: Сделать нормальное скрытие ненужных клав. Убрать нажатие недействительных клавиш в more
 //TODO: Разобраться со структурой программы. Может какие-то методы можно будет вытащить в отдельный класс
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
     EditText editText;
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         keyboard.bringChildToFront(findViewById(R.id.keyboard_main));
         Button main = (Button) findViewById(R.id.switch_main);
         main.setTextColor(getColor(R.color.switchButtonOn));
-
 
         editText = findViewById(R.id.edittext);
         hideAndroidKeyboard(editText); //Отвечает за скрытие клавиатуры при щелчке на поле ввода
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final ViewGroup keyboardPanel = (RelativeLayout) findViewById(R.id.keyboard_panel);
         final View swipeButton = (View) findViewById(R.id.swipe_button);
         ConstraintLayout mainLayout = (ConstraintLayout)  findViewById(R.id.main);
-        RelativeLayout keyboard = (RelativeLayout) findViewById(R.id.keyboard);
+        final RelativeLayout keyboard = (RelativeLayout) findViewById(R.id.keyboard);
         keyboardPanel.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this) {
             ObjectAnimator swipeButtonAnimation;
             ObjectAnimator keyboardAnimation;
@@ -181,6 +181,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (symbol.equals("power")){
             symbol = "^"; //TODO: Можно заморочиться над верхним индексом
         }
+        if (symbol.equals("e")){
+            symbol = "e^";
+        }
         text.insert(position, symbol);
         editText.setText(text);
         editText.setSelection(position + symbol.length());
@@ -211,60 +214,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onClick(View v) {
+        String id = v.getResources().getResourceName(v.getId());
+        String action = id.substring(id.lastIndexOf("_")+1);
         Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(createOneShot(1, 150));
-        String id = v.getResources().getResourceName(v.getId());
-        String action;
-        switch (v.getId()) {
-            case R.id.digit_include_delete:
-            case R.id.main_include_delete:
-            case R.id.more_include_delete:
+        switch (action) {
+            case "delete":
                 delete();
                 break;
-            case R.id.digit_include_add:
-            case R.id.main_include_add:
-            case R.id.more_include_add:
+            case "add":
                 putIntoText("+", true);
                 break;
-            case R.id.digit_include_multiply:
-            case R.id.main_include_multiply:
-            case R.id.more_include_multiply:
+            case "multiply":
                 putIntoText("·", true);
                 break;
-            case R.id.digit_include_divide:
-            case R.id.main_include_divide:
-            case R.id.more_include_divide:
+            case "divide":
                 putIntoText("÷", true);
                 break;
-            case R.id.digit_include_subtract:
-            case R.id.main_include_subtract:
-            case R.id.more_include_subtract:
+            case "subtract":
                 putIntoText("−", true);
                 break;
-            case R.id.digit_include_open:
-            case R.id.main_include_open:
-            case R.id.more_include_open:
+            case "open":
                 putIntoText("(", false);
                 break;
-            case R.id.digit_include_close:
-            case R.id.main_include_close:
-            case R.id.more_include_close:
+            case "close":
                 putIntoText(")", false);
                 break;
-            case R.id.digit_include_x:
-            case R.id.main_include_x:
-            case R.id.more_include_x:
+            case "x":
                 putIntoText("x", true);
-            case R.id.digit_include_calculate:
-            case R.id.main_include_calculate:
-            case R.id.more_include_calculate:
+            case "calculate":
                 //code;
                 break;
-            case R.id.button_point:
+            case "point":
                 putIntoText(".", true);
                 break;
             default:
-                action = id.substring(id.lastIndexOf("_")+1);
                 putIntoText(action, false);
         }
     }

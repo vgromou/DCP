@@ -76,7 +76,6 @@
                         android:id="@+id/keyboard"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
             <include layout="@layout/more_keyboard_layout"
                      android:layout_height="match_parent"
                      android:layout_width="match_parent"

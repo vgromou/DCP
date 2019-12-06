@@ -72,11 +72,10 @@
             android:id="@+id/button_cth"
     />
     <Button
-            android:onClick="onClick"
+            android:id="@+id/first_empty"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
-            android:clickable="false"
             android:textAllCaps="false"
             android:text=""
             android:textSize="30sp"
@@ -88,11 +87,10 @@
              android:id="@+id/more_include_divide"
     />
     <Button
-            android:onClick="onClick"
+            android:id="@+id/second_empty"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
-            android:clickable="false"
             android:textAllCaps="false"
             android:text=""
             android:textSize="30sp"
@@ -100,21 +98,19 @@
             android:layout_column="0"
     />
     <Button
-            android:onClick="onClick"
+            android:id="@+id/third_empty"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
-            android:clickable="false"
             android:textAllCaps="false"
             android:text=""
             android:textSize="30sp"
     />
     <Button
-            android:onClick="onClick"
+            android:id="@+id/forth_empty"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
-            android:clickable="false"
             android:textAllCaps="false"
             android:text=""
             android:textSize="30sp"
@@ -126,11 +122,10 @@
              android:id="@+id/more_include_multiply"
     />
     <Button
-            android:onClick="onClick"
+            android:id="@+id/fifth_empty"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
-            android:clickable="false"
             android:textAllCaps="false"
             android:text=""
             android:textSize="30sp"
@@ -138,11 +133,10 @@
             android:layout_column="0"
     />
     <Button
-            android:onClick="onClick"
+            android:id="@+id/sixth_empty"
             android:layout_width="100dp"
             android:layout_height="85dp"
             android:background="@android:color/background_light"
-            android:clickable="false"
             android:textAllCaps="false"
             android:text=""
             android:textSize="30sp"
