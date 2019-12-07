@@ -14,8 +14,11 @@ public class ArcCos implements Function {
     }
 
     @Override
-    public StringBuilder differentiate() {
+    public StringBuilder differentiate(){
         StringBuilder result = new StringBuilder("(-1 / (1 - ");
+        char sign = function.charAt(0);
+
+        function.deleteCharAt(0);
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
         StringBuilder difArg = new StringBuilder("");

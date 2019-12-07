@@ -1,5 +1,7 @@
 package functions;
 
+import actions.Differentiation;
+
 public class Th implements Function {
     private StringBuilder function;
 
@@ -12,11 +14,14 @@ public class Th implements Function {
     }
 
     @Override
-    public StringBuilder differentiate() {
+    public StringBuilder differentiate(){
         StringBuilder result = new StringBuilder("1 / (ch^(2)*(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-        StringBuilder difArg = complex(arg);
+        StringBuilder difArg = new StringBuilder("");
+        if(!Differentiation.difExpression(arg).toString().equals("0")) {
+            difArg = Differentiation.difExpression(arg);
+        }
 
         result.append("(" + difArg + ") ) )" );
 

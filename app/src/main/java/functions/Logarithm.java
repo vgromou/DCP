@@ -1,5 +1,7 @@
 package functions;
 
+import actions.Differentiation;
+
 public class Logarithm implements Function {
 
     private StringBuilder function;
@@ -13,7 +15,7 @@ public class Logarithm implements Function {
     }
 
     @Override
-    public StringBuilder differentiate() {
+    public StringBuilder differentiate(){
 
 
         StringBuilder result = new StringBuilder();
@@ -24,7 +26,10 @@ public class Logarithm implements Function {
             result.append("(1 / ( ");
 
             StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-            StringBuilder difArg = complex(arg); //оставлять это?
+            StringBuilder difArg = new StringBuilder("");
+        if(!Differentiation.difExpression(arg).toString().equals("0")) {
+            difArg = Differentiation.difExpression(arg);
+        } //оставлять это?
 
             result.append(arg + ")) * " + difArg);
         }
@@ -36,7 +41,10 @@ public class Logarithm implements Function {
 
             StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
             StringBuilder baseOfTheLogarithm = new StringBuilder(function.substring(function.indexOf("g") + 1, function.lastIndexOf("(")));
-            StringBuilder difArg = complex(arg);
+            StringBuilder difArg = new StringBuilder("");
+        if(!Differentiation.difExpression(arg).toString().equals("0")) {
+            difArg = Differentiation.difExpression(arg);
+        }
 
             result.append(arg + ") * ln" + baseOfTheLogarithm + "))");
         }

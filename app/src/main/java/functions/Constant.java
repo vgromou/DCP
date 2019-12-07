@@ -12,8 +12,8 @@ public class Constant implements Function {
     }
 
     @Override
-    public StringBuilder differentiate() {
-        return null;
+    public StringBuilder differentiate(){
+        return new StringBuilder("0");
     }
 
 }

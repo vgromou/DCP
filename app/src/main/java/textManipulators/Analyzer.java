@@ -10,16 +10,15 @@ import java.util.List;
 public abstract class Analyzer {
     private List<StringBuilder> functions;
 
-    public static List<String> crush (StringBuilder expression){
+    private static List<String> crush (StringBuilder expression){
         List<String> functions = new ArrayList<>();
         List<Integer> signsIndexes = new ArrayList<>();
-
         if (expression.charAt(0) != '−'){
-            expression.insert('+', 0);
+            //expression.insert('+', 0);
         }
 
         for (int i = 0, countBracket = 0; i < expression.length(); i++) {
-            if((expression.charAt(i) == '+' || expression.charAt(i) == '−') && countBracket == 0){
+            if((expression.charAt(i) == '+' || expression.charAt(i) == '-') && countBracket == 0){
                 signsIndexes.add(i);
             }
             else if (expression.charAt(i) == '('){
@@ -33,7 +32,7 @@ public abstract class Analyzer {
         for (int i = 0; i < signsIndexes.size() - 1; i++) {
             functions.add(expression.substring(signsIndexes.get(i), signsIndexes.get(i+1)));
         }
-        functions.add(expression.substring(signsIndexes.get(signsIndexes.size())-1));
+        functions.add(expression.substring(signsIndexes.get(signsIndexes.size()-1)));
 
         return functions;
     }
@@ -75,9 +74,6 @@ public abstract class Analyzer {
             else if(var.contains("l")){
                 result.add(new Logarithm(temp));
             }
-            else if(var.contains("x^")){
-                result.add(new Power(temp));
-            }
             else if(var.contains("sh")){
                 result.add(new Sh(temp));
             }
@@ -95,6 +91,9 @@ public abstract class Analyzer {
             }
             else if(var.contains("·")){
                 result.add(new Multiplication(temp));
+            }
+            else if(var.contains("x")){
+                result.add(new Power(temp));
             }
             else{
                 result.add(new Constant(temp));
@@ -155,7 +154,7 @@ public abstract class Analyzer {
         return result;
     }
 
-    public static List<String> deleteBrackets (List<String> functions){
+    private static List<String> deleteBrackets (List<String> functions){
         List<String> result = new ArrayList<>();
         for (int i = 0; i < functions.size(); i++) {
             StringBuilder temp = new StringBuilder(functions.get(i));
@@ -170,15 +169,20 @@ public abstract class Analyzer {
                 else if (temp.charAt(j) == '(') countInnerBrackets++;
                 else if (temp.charAt(j) == ')') countInnerBrackets--;
             }
+
+            int shiftSymbols = 0;
+
             for (int k = 0; k < bracketIndexes.size()-1; k+=2) {
                 int open = bracketIndexes.get(k);
                 int close = bracketIndexes.get(k+1);
-                if(temp.substring(open, close).contains((CharSequence) "x")){
-                    temp.replace(open, close + 1, "x");
+                System.out.println(bracketIndexes.get(k) + " " + bracketIndexes.get(k+1));
+                if(temp.substring(open - shiftSymbols, close - shiftSymbols).contains("x")){
+                    temp.replace(open - shiftSymbols, close + 1 - shiftSymbols, "x");
                 }
                 else temp.delete(open, close + 1);
+                shiftSymbols += close;
             }
-            if(!temp.toString().contains((CharSequence)"x")){
+            if(!temp.toString().contains("x")){
                 temp = new StringBuilder("0");
             }
             result.add(temp.toString());

@@ -9,7 +9,7 @@ public class Division implements Function {
     }
 
     @Override
-    public StringBuilder differentiate() {
+    public StringBuilder differentiate(){
         return null;
     }
 }

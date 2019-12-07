@@ -1,6 +1,7 @@
 package com.example.dcp;
 
 
+import actions.Differentiation;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -10,10 +11,7 @@ import android.transition.*;
 import android.view.*;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.ButtonBarLayout;
@@ -21,12 +19,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.ViewGroupUtils;
 import androidx.core.view.MotionEventCompat;
 
+import java.util.Arrays;
+
 import static android.os.VibrationEffect.*;
 import static android.view.View.*;
 //TODO: Сделать нормальное скрытие ненужных клав. Убрать нажатие недействительных клавиш в more
 //TODO: Разобраться со структурой программы. Может какие-то методы можно будет вытащить в отдельный класс
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener{
     EditText editText;
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editText = findViewById(R.id.edittext);
         hideAndroidKeyboard(editText); //Отвечает за скрытие клавиатуры при щелчке на поле ввода
         editText.setGravity(Gravity.END);
+
+        textView = findViewById(R.id.textView);
+        textView.setGravity(Gravity.END);
 
         swipe(); //Отвечает за все свайпы
 
@@ -241,9 +245,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 putIntoText(")", false);
                 break;
             case "x":
-                putIntoText("x", true);
+                putIntoText("x", false);
+                break;
             case "calculate":
-                //code;
+                calculate();
                 break;
             case "point":
                 putIntoText(".", true);
@@ -256,6 +261,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onLongClick(View v) {
         //TODO: Можно сделать анимацию полного удаления текста
         editText.setText("");
+        textView.setText("");
         return true;
+    }
+
+    private void calculate(){
+        String strExpression = editText.getText().toString();
+        StringBuilder strBuildExpression = new StringBuilder(strExpression);
+        System.out.println(strBuildExpression);
+        StringBuilder answer;
+        answer = Differentiation.difExpression(strBuildExpression);
+        editText.setText(answer);
+        editText.setSelection(answer.length());
+        textView.setText(strExpression);
     }
 }
