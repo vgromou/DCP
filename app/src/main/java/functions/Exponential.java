@@ -9,6 +9,9 @@ public class Exponential implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Exponential(StringBuilder function){
         this.function = function;
     }

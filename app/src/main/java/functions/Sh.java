@@ -9,6 +9,9 @@ public class Sh implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Sh(StringBuilder function){
         this.function = function;
     }

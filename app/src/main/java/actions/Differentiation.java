@@ -31,7 +31,7 @@ public abstract class Differentiation {
         }
 
         List<Function> function = Analyzer.distribute(expression);
-        
+
         StringBuilder answer = new StringBuilder();
 
         /*
@@ -41,6 +41,7 @@ public abstract class Differentiation {
 
         for (int i = 0; i < function.size(); i++) {
             char sign = function.get(i).getFunction().charAt(0);
+            function.get(i).setFunction(function.get(i).getFunction().deleteCharAt(i));
             StringBuilder currentFunction = function.get(i).differentiate();
             if(currentFunction.toString().equals("0")){
                 continue;

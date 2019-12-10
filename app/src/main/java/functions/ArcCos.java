@@ -9,7 +9,11 @@ public class ArcCos implements Function {
         return function;
     }
 
-    public ArcCos(StringBuilder function){
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
+
+  public ArcCos(StringBuilder function){
         this.function = function;
         System.out.println(this.function + " FUNCTION");
     }
@@ -23,7 +27,8 @@ public class ArcCos implements Function {
         StringBuilder difArg = new StringBuilder();
         if(arg.toString().contains("x")){
             difArg.append("(");
-            difArg.append(Differentiation.difExpression(arg));
+            StringBuilder temp = new StringBuilder(arg.toString());
+            difArg.append(Differentiation.difExpression(temp));
             difArg.append(")");
             difArg.append("·");
         }

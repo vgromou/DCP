@@ -11,6 +11,11 @@ public class Power implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
+
+
     public Power(StringBuilder function){
         this.function = function;
         System.out.println(this.function + " FUNCTION");
@@ -18,8 +23,6 @@ public class Power implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        function.deleteCharAt(0);
-
         StringBuilder result = new StringBuilder();
         StringBuilder power;
 
@@ -94,7 +97,8 @@ public class Power implements Function {
         StringBuilder difArg = new StringBuilder();
         if(arg.toString().contains("x")){
             difArg.append("(");
-            difArg.append(Differentiation.difExpression(arg));
+            StringBuilder temp = new StringBuilder(arg.toString());
+            difArg.append(Differentiation.difExpression(temp));
             difArg.append(")");
             difArg.append("·");
         }

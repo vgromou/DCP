@@ -9,6 +9,9 @@ public class Th implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Th(StringBuilder function){
         this.function = function;
     }

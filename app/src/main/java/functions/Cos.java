@@ -9,6 +9,9 @@ public class Cos implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Cos(StringBuilder function){
         this.function = function;
     }

@@ -9,6 +9,11 @@ public class Multiplication implements Function {
         return null;
     }
 
+    @Override
+    public void setFunction(StringBuilder newFunction) {
+
+    }
+
     public Multiplication(StringBuilder function){
 
     }

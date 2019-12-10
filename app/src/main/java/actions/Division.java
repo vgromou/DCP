@@ -9,6 +9,11 @@ public class Division implements Function {
         return null;
     }
 
+    @Override
+    public void setFunction(StringBuilder newFunction) {
+
+    }
+
     public Division(StringBuilder function){
 
     }

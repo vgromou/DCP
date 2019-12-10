@@ -7,6 +7,9 @@ public class Constant implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Constant(StringBuilder function){
         this.function = function;
     }

@@ -9,6 +9,9 @@ public class ArcTan implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public ArcTan(StringBuilder function){
         this.function = function;
     }

@@ -9,6 +9,9 @@ public class Tan implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Tan(StringBuilder function){
         this.function = function;
     }

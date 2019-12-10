@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Analyzer {
-    private List<StringBuilder> functions;
 
     private static List<String> crush (StringBuilder expression){
         List<String> functions = new ArrayList<>();

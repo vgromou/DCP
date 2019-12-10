@@ -9,6 +9,9 @@ public class Cotan implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Cotan(StringBuilder function){
         this.function = function;
     }

@@ -9,6 +9,9 @@ public class Ch implements Function {
         return function;
     }
 
+    public void setFunction(StringBuilder newFunction) {
+        this.function = newFunction;
+    }
     public Ch(StringBuilder function){
         this.function = function;
     }
