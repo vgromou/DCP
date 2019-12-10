@@ -270,6 +270,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         StringBuilder strBuildExpression = new StringBuilder(strExpression);
         System.out.println(strBuildExpression);
         StringBuilder answer;
+        //TODO: Когда с основными ошибками разберетесь, сделать тут try-catch, чтобы выводить Error в случае неправильной записи
         answer = Differentiation.difExpression(strBuildExpression);
         editText.setText(answer);
         editText.setSelection(answer.length());

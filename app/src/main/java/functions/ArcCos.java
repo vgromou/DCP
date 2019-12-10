@@ -11,22 +11,25 @@ public class ArcCos implements Function {
 
     public ArcCos(StringBuilder function){
         this.function = function;
+        System.out.println(this.function + " FUNCTION");
     }
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new StringBuilder("(-1 / (1 - ");
-        char sign = function.charAt(0);
-
-        function.deleteCharAt(0);
+        StringBuilder result = new StringBuilder("(-1÷(1-");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-        StringBuilder difArg = new StringBuilder("");
-        if(!Differentiation.difExpression(arg).toString().equals("0")) {
-            difArg = Differentiation.difExpression(arg);
+        System.out.println(arg + " ARG AT BEG");
+        StringBuilder difArg = new StringBuilder();
+        if(arg.toString().contains("x")){
+            difArg.append("(");
+            difArg.append(Differentiation.difExpression(arg));
+            difArg.append(")");
+            difArg.append("·");
         }
-
-        result.append("(" + arg + ")^2)^(1/2)) * " + difArg );
+        result.insert(0, difArg);
+        result.append("(").append(arg).append(")^2)^(1÷2))");
+        System.out.println(arg + " ARG");
         return result;
     }
 

@@ -13,9 +13,6 @@ public abstract class Analyzer {
     private static List<String> crush (StringBuilder expression){
         List<String> functions = new ArrayList<>();
         List<Integer> signsIndexes = new ArrayList<>();
-        if (expression.charAt(0) != '−'){
-            //expression.insert('+', 0);
-        }
 
         for (int i = 0, countBracket = 0; i < expression.length(); i++) {
             if((expression.charAt(i) == '+' || expression.charAt(i) == '-') && countBracket == 0){
@@ -98,7 +95,6 @@ public abstract class Analyzer {
             else{
                 result.add(new Constant(temp));
             }
-
             /*switch (auxiliary.get(i)){
                 case "x^":
                     result.add(new Power(temp));
@@ -159,15 +155,19 @@ public abstract class Analyzer {
         for (int i = 0; i < functions.size(); i++) {
             StringBuilder temp = new StringBuilder(functions.get(i));
             List<Integer> bracketIndexes = new ArrayList<>();
-            for (int j = 0, countInnerBrackets = 0; j < temp.length(); j++) {
+            for (int j = 0, countInnerBrackets = 0, countOuterBrackets = 0; j < temp.length(); j++) {
+
+                if (temp.charAt(j) == '(' && countOuterBrackets != 0) countInnerBrackets++;
+                else if (temp.charAt(j) == ')' && countOuterBrackets != 0 && countInnerBrackets != 0) countInnerBrackets--;
+
                 if(temp.charAt(j) == '(' && countInnerBrackets == 0){
                     bracketIndexes.add(j);
+                    countOuterBrackets++;
                 }
                 else if(temp.charAt(j) == ')' && countInnerBrackets == 0){
                     bracketIndexes.add(j);
+                    countOuterBrackets--;
                 }
-                else if (temp.charAt(j) == '(') countInnerBrackets++;
-                else if (temp.charAt(j) == ')') countInnerBrackets--;
             }
 
             int shiftSymbols = 0;
@@ -175,7 +175,6 @@ public abstract class Analyzer {
             for (int k = 0; k < bracketIndexes.size()-1; k+=2) {
                 int open = bracketIndexes.get(k);
                 int close = bracketIndexes.get(k+1);
-                System.out.println(bracketIndexes.get(k) + " " + bracketIndexes.get(k+1));
                 if(temp.substring(open - shiftSymbols, close - shiftSymbols).contains("x")){
                     temp.replace(open - shiftSymbols, close + 1 - shiftSymbols, "x");
                 }
@@ -190,3 +189,4 @@ public abstract class Analyzer {
         return result;
     }
 }
+//TODO: Появляются плюсики в аргументах. Исправить

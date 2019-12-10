@@ -40,16 +40,19 @@ public abstract class Differentiation {
          */
 
         for (int i = 0; i < function.size(); i++) {
+            char sign = function.get(i).getFunction().charAt(0);
             StringBuilder currentFunction = function.get(i).differentiate();
             if(currentFunction.toString().equals("0")){
                 continue;
             }
+            answer.append(sign);
             answer.append(currentFunction);
         }
 
         if (answer.length() == 0){
             answer.append(0);
         }
+
         if (answer.charAt(0) == '+'){
             answer.deleteCharAt(0);
         }

@@ -15,15 +15,16 @@ public class Cos implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new StringBuilder("(- sin(");
+        StringBuilder result = new StringBuilder("(-sin(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-        StringBuilder difArg = new StringBuilder("");
+        StringBuilder difArg = new StringBuilder();
         if(!Differentiation.difExpression(arg).toString().equals("0")) {
             difArg = Differentiation.difExpression(arg);
         }
 
-        result.append("(" + arg + "))) * " +difArg );
+
+        result.append(arg).append("))) * ").append(difArg);
 
         return result;
     }

@@ -6,21 +6,20 @@ import java.util.Arrays;
 
 public class Power implements Function {
     private StringBuilder function;
-    private boolean isNegative;
 
     public StringBuilder getFunction() {
         return function;
     }
 
     public Power(StringBuilder function){
-        this.isNegative = function.charAt(0) == '-';
-        System.out.println(function);
-        this.function = function.deleteCharAt(0);
-        System.out.println(this.function);
+        this.function = function;
+        System.out.println(this.function + " FUNCTION");
     }
 
     @Override
     public StringBuilder differentiate(){
+        function.deleteCharAt(0);
+
         StringBuilder result = new StringBuilder();
         StringBuilder power;
 
@@ -46,40 +45,46 @@ public class Power implements Function {
             arg = function;
         }
 
+        System.out.println(arg + " ARG AT BEG");
         StringBuilder newPower = new StringBuilder();
 
         if(power.toString().contains("÷")){
-            int numerator = 0;
-            int denominator = 0;
+            double numerator = 0;
+            double denominator = 0;
             try {
-                numerator = Integer.parseInt(power.substring(1, power.indexOf("÷")));
-                denominator = Integer.parseInt(power.substring(power.indexOf("÷") + 1, power.length()-1));
+                numerator = Double.parseDouble(power.substring(1, power.indexOf("÷")));
+                denominator = Double.parseDouble(power.substring(power.indexOf("÷") + 1, power.length()-1));
             }
             catch (NumberFormatException e){
                 System.out.println(Arrays.toString(e.getStackTrace()));
             }
-            int newNumerator = numerator - denominator;
-            newPower.append("(").append(newNumerator).append("÷").append(denominator).append(")");
+            double newNumerator = numerator - denominator;
+
+            String denominatorStr = isInteger(denominator) ? "" + ((int) denominator) : "" + denominator;
+
+            newPower.append("(").append(newNumerator).append("÷").append(denominatorStr).append(")");
         }
         else{
-            int n = 0;
+            double n = 0;
             try {
                 if(power.charAt(0) == '(') {
-                    n = Integer.parseInt(power.toString().substring(1, power.length() - 1));
+                    n = Double.parseDouble(power.toString().substring(1, power.length() - 1));
                 }
                 else {
-                    n = Integer.parseInt(power.toString());
+                    n = Double.parseDouble(power.toString());
                 }
             }
             catch (NumberFormatException e){
 
             }
             if(n != 1) {
-                newPower.append(n - 1);
-                if (Integer.parseInt(newPower.toString()) < 0){
+                newPower.append(n - 1.00d);
+                if (Double.parseDouble(newPower.toString()) < 0){
                     newPower.append(")");
                     newPower.insert(0, "(");
                 }
+
+                newPower = isInteger(n) ? newPower.delete(newPower.indexOf("."), newPower.length()) : newPower;
             }
             else {
                 arg.setCharAt(arg.indexOf("x"), '1');
@@ -93,21 +98,21 @@ public class Power implements Function {
             difArg.append(")");
             difArg.append("·");
         }
-        else{
-            difArg = new StringBuilder();
-        }
 
         if(arg.toString().contains("x")){
-            result.append(difArg).append(power).append("·(x)^").append(newPower);
+            System.out.println(arg + " ARG");
+            result.append(difArg).append(power).append("·(").append(arg).append(")^").append(newPower);
         }
         else {
             result.append(arg);
         }
-        if(isNegative){
-            result.insert(0, "-");
-        }
 
         return result;
+    }
+
+    private boolean isInteger (Double number){
+        String fraction = number.toString().substring(number.toString().indexOf("."));
+        return fraction.length() == 2;
     }
 
 }
