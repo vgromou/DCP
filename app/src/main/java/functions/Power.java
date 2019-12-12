@@ -18,7 +18,6 @@ public class Power implements Function {
 
     public Power(StringBuilder function){
         this.function = function;
-        System.out.println(this.function + " FUNCTION");
     }
 
     @Override
@@ -48,7 +47,6 @@ public class Power implements Function {
             arg = function;
         }
 
-        System.out.println(arg + " ARG AT BEG");
         StringBuilder newPower = new StringBuilder();
 
         if(power.toString().contains("÷")){
@@ -104,7 +102,6 @@ public class Power implements Function {
         }
 
         if(arg.toString().contains("x")){
-            System.out.println(arg + " ARG");
             result.append(difArg).append(power).append("·(").append(arg).append(")^").append(newPower);
         }
         else {

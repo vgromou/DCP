@@ -15,7 +15,6 @@ public class ArcCos implements Function {
 
   public ArcCos(StringBuilder function){
         this.function = function;
-        System.out.println(this.function + " FUNCTION");
     }
 
     @Override
@@ -23,7 +22,6 @@ public class ArcCos implements Function {
         StringBuilder result = new StringBuilder("(-1÷(1-");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-        System.out.println(arg + " ARG AT BEG");
         StringBuilder difArg = new StringBuilder();
         if(arg.toString().contains("x")){
             difArg.append("(");
@@ -34,7 +32,6 @@ public class ArcCos implements Function {
         }
         result.insert(0, difArg);
         result.append("(").append(arg).append(")^2)^(1÷2))");
-        System.out.println(arg + " ARG");
         return result;
     }
 

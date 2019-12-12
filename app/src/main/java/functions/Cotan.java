@@ -18,15 +18,19 @@ public class Cotan implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new StringBuilder("(-1 / (sin^(2) * ( ");
+        StringBuilder result = new StringBuilder("(-1÷(sin(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
         StringBuilder difArg = new StringBuilder("");
-        if(!Differentiation.difExpression(arg).toString().equals("0")) {
-            difArg = Differentiation.difExpression(arg);
+        if(arg.toString().contains("x")){
+            difArg.append("(");
+            StringBuilder temp = new StringBuilder(arg.toString());
+            difArg.append(Differentiation.difExpression(temp));
+            difArg.append(")");
+            difArg.append("·");
         }
-
-        result.append("(" + arg + "))) * " + difArg );
+        result.insert(0, difArg);
+        result.append(arg).append("))^2)");
         return result;
     }
 

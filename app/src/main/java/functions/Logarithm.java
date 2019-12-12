@@ -24,32 +24,37 @@ public class Logarithm implements Function {
         StringBuilder result = new StringBuilder();
 
         // Натуральный логарфим
-        if (function.charAt(2) == 'n') //точно 2 символ?
-        {
-            result.append("(1 / ( ");
-
+        if (function.charAt(1) == 'n'){
+            result.append("(1÷(");
             StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-            StringBuilder difArg = new StringBuilder("");
-        if(!Differentiation.difExpression(arg).toString().equals("0")) {
-            difArg = Differentiation.difExpression(arg);
-        } //оставлять это?
-
-            result.append(arg + ")) * " + difArg);
+            StringBuilder difArg = new StringBuilder();
+            if(arg.toString().contains("x")){
+                difArg.append("(");
+                StringBuilder temp = new StringBuilder(arg.toString());
+                difArg.append(Differentiation.difExpression(temp));
+                difArg.append(")");
+                difArg.append("·");
+            }
+            result.insert(0, difArg);
+            result.append(arg).append("))");
         }
 
         // Логарифм
-        if (function.charAt(3) == 'g')
-        {
-            result.append("(1 /((");
+        if (function.charAt(2) == 'g') {
+            result.append("(1÷((");
 
             StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
             StringBuilder baseOfTheLogarithm = new StringBuilder(function.substring(function.indexOf("g") + 1, function.lastIndexOf("(")));
             StringBuilder difArg = new StringBuilder("");
-        if(!Differentiation.difExpression(arg).toString().equals("0")) {
-            difArg = Differentiation.difExpression(arg);
-        }
-
-            result.append(arg + ") * ln" + baseOfTheLogarithm + "))");
+            if(arg.toString().contains("x")){
+                difArg.append("(");
+                StringBuilder temp = new StringBuilder(arg.toString());
+                difArg.append(Differentiation.difExpression(temp));
+                difArg.append(")");
+                difArg.append("·");
+            }
+            result.insert(0, difArg);
+            result.append(arg).append(")·ln").append(baseOfTheLogarithm).append("))");
         }
 
         return result;

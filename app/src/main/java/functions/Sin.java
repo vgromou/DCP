@@ -23,12 +23,16 @@ public class Sin implements Function {
         StringBuilder result = new StringBuilder("(cos(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-        StringBuilder difArg = new StringBuilder("");
-        if(!Differentiation.difExpression(arg).toString().equals("0")) {
-            difArg = Differentiation.difExpression(arg);
+        StringBuilder difArg = new StringBuilder();
+        if(arg.toString().contains("x")){
+            difArg.append("(");
+            StringBuilder temp = new StringBuilder(arg.toString());
+            difArg.append(Differentiation.difExpression(temp));
+            difArg.append(")");
+            difArg.append("·");
         }
-
-        result.append("(" + arg + "))) * " + difArg );
+        result.insert(0, difArg);
+        result.append(arg).append("))");
 
         return result;
     }

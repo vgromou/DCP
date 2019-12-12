@@ -40,7 +40,14 @@ public abstract class Analyzer {
         for (int i = 0; i < functions.size(); i++) {
             StringBuilder temp = new StringBuilder(functions.get(i));
             String var = auxiliary.get(i);
-            if(var.contains("arccos")){
+
+            if(var.contains("÷")){
+                result.add(new Division(temp));
+            }
+            else if(var.contains("·")){
+                result.add(new Multiplication(temp));
+            }
+            else if(var.contains("arccos")){
                 result.add(new ArcCos(temp));
             }
             else if(var.contains("arcctg")){
@@ -82,69 +89,12 @@ public abstract class Analyzer {
             else if(var.contains("th")){
                 result.add(new Th(temp));
             }
-            else if(var.contains("÷")){
-                result.add(new Division(temp));
-            }
-            else if(var.contains("·")){
-                result.add(new Multiplication(temp));
-            }
             else if(var.contains("x")){
                 result.add(new Power(temp));
             }
             else{
                 result.add(new Constant(temp));
             }
-            /*switch (auxiliary.get(i)){
-                case "x^":
-                    result.add(new Power(temp));
-                    break;
-                case "^x":
-                    result.add(new Exponential(temp));
-                    break;
-                case "cos":
-                    result.add(new Cos(temp));
-                    break;
-                case "sin":
-                    result.add(new Sin(temp));
-                    break;
-                case "tg":
-                    result.add(new Tan(temp));
-                    break;
-                case "ctg":
-                    result.add(new Cotan(temp));
-                    break;
-                case "arccos":
-                    result.add(new ArcCos(temp));
-                    break;
-                case "arcctg":
-                    result.add(new ArcCotan(temp));
-                    break;
-                case "arcsin":
-                    result.add(new ArcSin(temp));
-                    break;
-                case "arctg":
-                    result.add(new ArcTan(temp));
-                    break;
-                case "ch":
-                    result.add(new Ch(temp));
-                    break;
-                case "cth":
-                    result.add(new Cth(temp));
-                    break;
-                case "log":
-                case "ln":
-                    result.add(new Logarithm(temp));
-                    break;
-                case "sh":
-                    result.add(new Sh(temp));
-                    break;
-                case "th":
-                    result.add(new Th(temp));
-                    break;
-                default:
-                    result.add(new Constant(temp));
-                    break;
-            }*/
         }
         return result;
     }
@@ -187,5 +137,39 @@ public abstract class Analyzer {
         }
         return result;
     }
+
+    public static List<StringBuilder> crushMultiplication (StringBuilder expression){
+        expression.insert(0, "·");
+        List<StringBuilder> functions = new ArrayList<>();
+        List<Integer> signIndexes = new ArrayList<>();
+        List<StringBuilder> temp = new ArrayList<>();
+
+        for (int i = 0, countBracket = 0; i < expression.length(); i++) {
+            if(expression.charAt(i) == '·' && countBracket == 0){
+                signIndexes.add(i);
+            }
+            else if (expression.charAt(i) == '('){
+                countBracket++;
+            }
+            else if (expression.charAt(i) == ')'){
+                countBracket--;
+            }
+        }
+
+        for (int i = 0; i < signIndexes.size(); i++) {
+            if(i != signIndexes.size() - 1) {
+                temp.add(new StringBuilder(expression.substring(signIndexes.get(i) + 1, signIndexes.get(i + 1))));
+            }
+            else {
+                temp.add(new StringBuilder(expression.substring(signIndexes.get(signIndexes.size() - 1) + 1)));
+            }
+            if(temp.get(i).charAt(0) == '('){
+                temp.get(i).deleteCharAt(0);
+                temp.get(i).deleteCharAt(temp.get(i).length()-1);
+            }
+            functions.add(temp.get(i));
+        }
+
+        return functions;
+    }
 }
-//TODO: Появляются плюсики в аргументах. Исправить
