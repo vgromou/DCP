@@ -3,15 +3,48 @@ package textManipulators;
 import actions.Division;
 import actions.Multiplication;
 import functions.*;
+import tree.GenericTree;
+import tree.GenericTreeNode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Analyzer {
 
-    private static List<String> crush (StringBuilder expression){
-        List<String> functions = new ArrayList<>();
+    public static GenericTree<StringBuilder> buildTree(StringBuilder expression){
+        GenericTree<StringBuilder> functionTree = new GenericTree<>();
+        GenericTreeNode<StringBuilder> root = new GenericTreeNode<>();
+        root.setData(expression);
+        functionTree.setRoot(root);
+        build(root);
+        return functionTree;
+    }
+    private static void build(GenericTreeNode<StringBuilder> node){
+        System.out.println(node.getData().toString());
+        if (!node.getData().toString().contains("(")) {
+            return;
+        }
+
+
+        List<StringBuilder> children = crush(node.getData());
+
+        for (StringBuilder stringBuilder : children) {
+            GenericTreeNode<StringBuilder> temp = new GenericTreeNode<>(stringBuilder);
+            node.addChild(temp);
+            build(temp);
+        }
+    }
+
+    private static List<StringBuilder> crush (StringBuilder expressionT){ //К изначальному выражению присобачить скобки!
+        StringBuilder expression = new StringBuilder(expressionT.toString());
+        List<StringBuilder> functions = new ArrayList<>();
         List<Integer> signsIndexes = new ArrayList<>();
+
+        int index = expression.indexOf("(");
+        expression.delete(0, index + 1); //exclusive index
+        int lastIndex = expression.lastIndexOf(")");
+        expression.deleteCharAt(lastIndex);
 
         for (int i = 0, countBracket = 0; i < expression.length(); i++) {
             if((expression.charAt(i) == '+' || expression.charAt(i) == '-') && countBracket == 0){
@@ -26,116 +59,80 @@ public abstract class Analyzer {
         }
 
         for (int i = 0; i < signsIndexes.size() - 1; i++) {
-            functions.add(expression.substring(signsIndexes.get(i), signsIndexes.get(i+1)));
+            StringBuilder temp = new StringBuilder(expression.substring(signsIndexes.get(i), signsIndexes.get(i+1)));
+            functions.add(temp);
         }
-        functions.add(expression.substring(signsIndexes.get(signsIndexes.size()-1)));
-
+        StringBuilder temp = new StringBuilder(expression.substring(signsIndexes.get(signsIndexes.size()-1)));
+        functions.add(temp);
         return functions;
     }
 
-    public static List<Function> distribute (StringBuilder expression){
-        List<Function> result = new ArrayList<>();
-        List<String> functions = crush(expression);
-        List<String> auxiliary = deleteBrackets(functions);
-        for (int i = 0; i < functions.size(); i++) {
-            StringBuilder temp = new StringBuilder(functions.get(i));
-            String var = auxiliary.get(i);
+    public static Function distribute (StringBuilder expression){
+            StringBuilder exVar = deleteBrackets(expression);
 
-            if(var.contains("÷")){
-                result.add(new Division(temp));
+            if(exVar.toString().contains("÷")){
+                return new Division(expression);
             }
-            else if(var.contains("·")){
-                result.add(new Multiplication(temp));
+            else if(exVar.toString().contains("·")){
+                return new Multiplication(expression);
             }
-            else if(var.contains("arccos")){
-                result.add(new ArcCos(temp));
+            else if(exVar.toString().contains("arccos")){
+                return new ArcCos(expression);
             }
-            else if(var.contains("arcctg")){
-                result.add(new ArcCotan(temp));
+            else if(exVar.toString().contains("arcctg")){
+                return new ArcCotan(expression);
             }
-            else if(var.contains("arcsin")){
-                result.add(new ArcSin(temp));
+            else if(exVar.toString().contains("arcsin")){
+                return new ArcSin(expression);
             }
-            else if(var.contains("arctg")){
-                result.add(new ArcTan(temp));
+            else if(exVar.toString().contains("arctg")){
+                return new ArcTan(expression);
             }
-            else if(var.contains("ch")){
-                result.add(new Ch(temp));
+            else if(exVar.toString().contains("ch")){
+                return new Ch(expression);
             }
-            else if(var.contains("cos")){
-                result.add(new Cos(temp));
+            else if(exVar.toString().contains("cos")){
+                return new Cos(expression);
             }
-            else if(var.contains("ctg")){
-                result.add(new Cotan(temp));
+            else if(exVar.toString().contains("ctg")){
+                return new Cotan(expression);
             }
-            else if(var.contains("cth")){
-                result.add(new Cth(temp));
+            else if(exVar.toString().contains("cth")){
+                return new Cth(expression);
             }
-            else if(var.contains("^x")){
-                result.add(new Exponential(temp));
+            else if(exVar.toString().contains("^x")){
+                return new Exponential(expression);
             }
-            else if(var.contains("l")){
-                result.add(new Logarithm(temp));
+            else if(exVar.toString().contains("l")){
+                return new Logarithm(expression);
             }
-            else if(var.contains("sh")){
-                result.add(new Sh(temp));
+            else if(exVar.toString().contains("sh")){
+                return new Sh(expression);
             }
-            else if(var.contains("sin")){
-                result.add(new Sin(temp));
+            else if(exVar.toString().contains("sin")){
+                return new Sin(expression);
             }
-            else if(var.contains("tg")){
-                result.add(new Tan(temp));
+            else if(exVar.toString().contains("tg")){
+                return new Tan(expression);
             }
-            else if(var.contains("th")){
-                result.add(new Th(temp));
+            else if(exVar.toString().contains("th")){
+                return new Th(expression);
             }
-            else if(var.contains("x")){
-                result.add(new Power(temp));
+            else if(exVar.toString().contains("x")){
+                return new Power(expression);
             }
             else{
-                result.add(new Constant(temp));
+                return new Constant(expression);
             }
-        }
-        return result;
     }
 
-    private static List<String> deleteBrackets (List<String> functions){
-        List<String> result = new ArrayList<>();
-        for (int i = 0; i < functions.size(); i++) {
-            StringBuilder temp = new StringBuilder(functions.get(i));
-            List<Integer> bracketIndexes = new ArrayList<>();
-            for (int j = 0, countInnerBrackets = 0, countOuterBrackets = 0; j < temp.length(); j++) {
-
-                if (temp.charAt(j) == '(' && countOuterBrackets != 0) countInnerBrackets++;
-                else if (temp.charAt(j) == ')' && countOuterBrackets != 0 && countInnerBrackets != 0) countInnerBrackets--;
-
-                if(temp.charAt(j) == '(' && countInnerBrackets == 0){
-                    bracketIndexes.add(j);
-                    countOuterBrackets++;
-                }
-                else if(temp.charAt(j) == ')' && countInnerBrackets == 0){
-                    bracketIndexes.add(j);
-                    countOuterBrackets--;
-                }
-            }
-
-            int shiftSymbols = 0;
-
-            for (int k = 0; k < bracketIndexes.size()-1; k+=2) {
-                int open = bracketIndexes.get(k);
-                int close = bracketIndexes.get(k+1);
-                if(temp.substring(open - shiftSymbols, close - shiftSymbols).contains("x")){
-                    temp.replace(open - shiftSymbols, close + 1 - shiftSymbols, "x");
-                }
-                else temp.delete(open, close + 1);
-                shiftSymbols += close;
-            }
-            if(!temp.toString().contains("x")){
-                temp = new StringBuilder("0");
-            }
-            result.add(temp.toString());
+    private static StringBuilder deleteBrackets (StringBuilder expression){
+        StringBuilder temp = new StringBuilder(expression.toString());
+        if(!temp.toString().contains("x")) temp = new StringBuilder("const");
+        if(temp.toString().contains("(") && temp.toString().contains(")")) {
+            temp.replace(temp.indexOf("("), temp.lastIndexOf(")") - 1, "x");
         }
-        return result;
+        return temp;
     }
 
     public static List<StringBuilder> crushMultiplication (StringBuilder expression){

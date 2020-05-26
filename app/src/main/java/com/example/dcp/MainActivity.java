@@ -18,6 +18,8 @@ import androidx.appcompat.widget.ButtonBarLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.coordinatorlayout.widget.ViewGroupUtils;
 import androidx.core.view.MotionEventCompat;
+import textManipulators.Analyzer;
+import tree.GenericTree;
 
 import java.util.Arrays;
 
@@ -268,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void calculate(){
         String strExpression = editText.getText().toString();
         StringBuilder strBuildExpression = new StringBuilder(strExpression);
-        System.out.println(strBuildExpression);
+
         StringBuilder answer;
         //TODO: Когда с основными ошибками разберетесь, сделать тут try-catch, чтобы выводить Error в случае неправильной записи
         answer = Differentiation.difExpression(strBuildExpression);

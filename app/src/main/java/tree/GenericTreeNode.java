@@ -5,13 +5,13 @@
 
 package tree;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GenericTreeNode<T> {
 
+    private int depth = 0;
     private T data;
     private List<GenericTreeNode<T>> children;
     private GenericTreeNode<T> parent;
@@ -24,6 +24,10 @@ public class GenericTreeNode<T> {
     public GenericTreeNode(T data) {
         this();
         setData(data);
+    }
+
+    public int getDepth() {
+        return this.depth;
     }
 
     public GenericTreeNode<T> getParent() {
@@ -52,6 +56,7 @@ public class GenericTreeNode<T> {
 
     public void addChild(GenericTreeNode<T> child) {
         child.parent = this;
+        child.depth = this.getDepth() + 1;
         children.add(child);
     }
 
@@ -70,6 +75,33 @@ public class GenericTreeNode<T> {
 
     public GenericTreeNode<T> getChildAt(int index) throws IndexOutOfBoundsException {
         return children.get(index);
+    }
+
+    public Set<GenericTreeNode<T>> getAllLeafNodes() {
+        Set<GenericTreeNode<T>> leafNodes = new HashSet<GenericTreeNode<T>>();
+        if (this.children.isEmpty()) {
+            leafNodes.add(this);
+        } else {
+            for (GenericTreeNode<T> child : this.children) {
+                leafNodes.addAll(child.getAllLeafNodes());
+            }
+        }
+        return leafNodes;
+    }
+
+    public Set<GenericTreeNode<T>> getAllLeafsWithMaxDepth() {
+        Set<GenericTreeNode<T>> leafNodes = getAllLeafNodes();
+        int maxDepth = 0;
+        for(GenericTreeNode<T> leaf: leafNodes){
+            if(maxDepth < leaf.getDepth()) maxDepth = leaf.getDepth();
+        }
+        Iterator<GenericTreeNode<T>> it = leafNodes.iterator();
+        for(GenericTreeNode<T> leaf = it.next();it.hasNext();leaf = it.next()){
+            if(leaf.getDepth() < maxDepth){
+                it.remove();
+            }
+        }
+        return leafNodes;
     }
 
     public T getData() {
