@@ -27,11 +27,16 @@ public abstract class Analyzer {
         }
 
         StringBuilder tempN = new StringBuilder(node.getData());
+        if(tempN.toString().charAt(0) == '(') {
+            tempN.deleteCharAt(0);
+            tempN.deleteCharAt(tempN.length() - 1);
+        }
         tempN = deleteBracketsMulti(tempN);
 
         List<StringBuilder> children;
         if(!tempN.toString().contains("·")) {
             children = crush(node.getData());
+            System.out.println(Arrays.toString(children.toArray()));
         }
         else{
             children = crushMultiplication(node.getData());
@@ -49,10 +54,12 @@ public abstract class Analyzer {
         List<StringBuilder> functions = new ArrayList<>();
         List<Integer> signsIndexes = new ArrayList<>();
 
+        System.out.println("EXPRESSION: " + expression.toString());
         int index = expression.indexOf("(");
         expression.delete(0, index + 1); //exclusive index
         int lastIndex = expression.lastIndexOf(")");
         expression.delete(lastIndex, expression.length());
+
 
         for (int i = 0, countBracket = 0; i < expression.length(); i++) {
             if((expression.charAt(i) == '+' || expression.charAt(i) == '-') && countBracket == 0){
@@ -69,7 +76,9 @@ public abstract class Analyzer {
         for (int i = 0; i < signsIndexes.size() - 1; i++) {
             StringBuilder temp = new StringBuilder(expression.substring(signsIndexes.get(i), signsIndexes.get(i+1)));
             functions.add(temp);
+            System.out.println("EXPRESSION: " + temp.toString());
         }
+        System.out.println("EXPRESSION LAST: " + expression.toString());
         StringBuilder temp = new StringBuilder(expression.substring(signsIndexes.get(signsIndexes.size()-1)));
         functions.add(temp);
         return functions;
@@ -144,23 +153,34 @@ public abstract class Analyzer {
     }
 
     private static StringBuilder deleteBracketsMulti (StringBuilder expression){
+        System.out.println("EXPRESSION IN MULTI:" + expression.toString());
         StringBuilder temp = new StringBuilder(expression.toString());
+        System.out.println(temp.toString());
         int beg = 0;
         int end = 0;
-        for (int i = 0; i < temp.toString().length(); i++) {
-            if(temp.charAt(i) == '('){
+        for (int i = 0, count = 0; i < temp.toString().length(); i++) {
+
+            if(temp.toString().charAt(i) == '(' && count != 0){
+                count++;
+            }
+            else if(temp.toString().charAt(i) == '('){
                 beg = i;
+                count++;
             }
-            if(temp.charAt(i) == ')'){
+            if(temp.toString().charAt(i) == ')' && count > 1) count--;
+            else if(temp.toString().charAt(i) == ')'){
                 end = i;
+                count--;
             }
+
             if(end != 0){
-                temp.delete(beg + 1, end);
+                temp = temp.delete(beg + 1, end);
                 i -= (end - beg);
                 i += 2;
                 beg = 0;
                 end = 0;
             }
+            System.out.println(temp.toString());
         }
         return temp;
     }
