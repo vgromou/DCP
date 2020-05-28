@@ -24,7 +24,7 @@ public class Logarithm implements Function {
         StringBuilder result = new StringBuilder();
 
         // Натуральный логарфим
-        if (function.charAt(1) == 'n'){
+        if (function.charAt(2) == 'n'){
             result = new StringBuilder("1÷(");
             StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
 
@@ -32,13 +32,13 @@ public class Logarithm implements Function {
         }
 
         // Логарифм
-        if (function.charAt(2) == 'g') {
+        if (function.charAt(3) == 'g') {
             result.append("1÷(");
 
             StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
             StringBuilder baseOfTheLogarithm = new StringBuilder(function.substring(function.indexOf("g") + 1, function.lastIndexOf("(")));
 
-            result.append(arg).append("ln").append(baseOfTheLogarithm).append(")");
+            result.append(arg).append("·ln").append(baseOfTheLogarithm).append(")");
         }
 
         return result;

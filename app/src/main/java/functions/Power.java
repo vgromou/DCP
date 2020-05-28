@@ -92,17 +92,8 @@ public class Power implements Function {
             }
         }
 
-        StringBuilder difArg = new StringBuilder();
         if(arg.toString().contains("x")){
-            difArg.append("(");
-            StringBuilder temp = new StringBuilder(arg.toString());
-            difArg.append(Differentiation.difExpression(temp));
-            difArg.append(")");
-            difArg.append("·");
-        }
-
-        if(arg.toString().contains("x")){
-            result.append(difArg).append(power).append("·(").append(arg).append(")^").append(newPower);
+            result.append(power).append("·(").append(arg).append(")^").append(newPower);
         }
         else {
             result.append(arg);

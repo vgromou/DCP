@@ -32,14 +32,14 @@ public abstract class Differentiation {
         GenericTree<StringBuilder> tree = Analyzer.buildTree(expression);
 
         //Проверка
-        //System.out.println(tree.getRoot().getParent());
-        //System.out.println(tree.getNumberOfNodes());
-        //System.out.println(tree.toStringWithDepth());
-        //System.out.println(expression);
+        System.out.println(tree.getRoot().getParent());
+        System.out.println(tree.getNumberOfNodes());
+        System.out.println(tree.toStringWithDepth());
+        System.out.println(expression);
 
         GenericTree<Function> treeFunc = buildTree(tree);
         //Проверка
-        //System.out.println(treeFunc.toStringWithDepth());
+        System.out.println(treeFunc.toStringWithDepth());
 
         GenericTree<StringBuilder> treeRes = new GenericTree<>();
         treeRes.setRoot(new GenericTreeNode<>(new StringBuilder(" ")));
@@ -52,8 +52,8 @@ public abstract class Differentiation {
         System.out.println(treeRes.toStringWithDepth());
         System.out.println(treeRes.getRoot().getChildren().get(1).getChildren().get(0).getChildren().get(0).getDepth());
         */
-
         difTree(treeFunc.getRoot(), treeRes.getRoot());
+        System.out.println(treeRes.toStringWithDepth());
 
         System.out.println(createAnswer(treeRes));
         return createAnswer(treeRes);
@@ -79,13 +79,21 @@ public abstract class Differentiation {
     }
 
     private static void difTree(GenericTreeNode<Function> node, GenericTreeNode<StringBuilder> nodeRes){
-        if(!nodeRes.hasChildren()){
+
+        if(!node.hasChildren()){
             return;
         }
 
         List<GenericTreeNode<Function>> children = node.getChildren();
         for (int i = 0; i < node.getNumberOfChildren(); i++) {
-            GenericTreeNode<StringBuilder> temp = new GenericTreeNode<>(children.get(i).getData().differentiate());
+            boolean isX = children.get(i).getData().getFunction().toString().equals("+x");
+            GenericTreeNode<StringBuilder> temp;
+            if(!isX) {
+                temp = new GenericTreeNode<>(children.get(i).getData().differentiate());
+            }
+            else{
+                temp = new GenericTreeNode<>(new StringBuilder("1"));
+            }
             nodeRes.addChild(temp);
             difTree(children.get(i), temp);
         }
@@ -116,8 +124,9 @@ public abstract class Differentiation {
             Iterator<GenericTreeNode<StringBuilder>> it = leafs.iterator();
             GenericTreeNode<StringBuilder> leaf = it.next();
             GenericTreeNode<StringBuilder> key = leaf;
+            key.getParent().setData(key.getParent().getData().insert(0, "(").append(")"));
             StringBuilder childFactor = key.getParent().getData();
-            childFactor.append("*(").append(key.getData());
+            childFactor.append("·(").append(key.getData());
             for (; it.hasNext(); ) {
                 leaf = it.next();
                 if(key.getParent().equals(leaf.getParent())){

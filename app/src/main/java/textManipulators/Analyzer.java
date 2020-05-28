@@ -26,7 +26,16 @@ public abstract class Analyzer {
             return;
         }
 
-        List<StringBuilder> children = crush(node.getData());
+        StringBuilder tempN = new StringBuilder(node.getData());
+        tempN = deleteBracketsMulti(tempN);
+
+        List<StringBuilder> children;
+        if(!tempN.toString().contains("·")) {
+            children = crush(node.getData());
+        }
+        else{
+            children = crushMultiplication(node.getData());
+        }
 
         for (StringBuilder stringBuilder : children) {
             GenericTreeNode<StringBuilder> temp = new GenericTreeNode<>(stringBuilder);
@@ -43,7 +52,7 @@ public abstract class Analyzer {
         int index = expression.indexOf("(");
         expression.delete(0, index + 1); //exclusive index
         int lastIndex = expression.lastIndexOf(")");
-        expression.deleteCharAt(lastIndex);
+        expression.delete(lastIndex, expression.length());
 
         for (int i = 0, countBracket = 0; i < expression.length(); i++) {
             if((expression.charAt(i) == '+' || expression.charAt(i) == '-') && countBracket == 0){
@@ -130,6 +139,28 @@ public abstract class Analyzer {
         if(!temp.toString().contains("x")) temp = new StringBuilder("const");
         if(temp.toString().contains("(") && temp.toString().contains(")")) {
             temp.replace(temp.indexOf("("), temp.lastIndexOf(")") - 1, "x");
+        }
+        return temp;
+    }
+
+    private static StringBuilder deleteBracketsMulti (StringBuilder expression){
+        StringBuilder temp = new StringBuilder(expression.toString());
+        int beg = 0;
+        int end = 0;
+        for (int i = 0; i < temp.toString().length(); i++) {
+            if(temp.charAt(i) == '('){
+                beg = i;
+            }
+            if(temp.charAt(i) == ')'){
+                end = i;
+            }
+            if(end != 0){
+                temp.delete(beg + 1, end);
+                i -= (end - beg);
+                i += 2;
+                beg = 0;
+                end = 0;
+            }
         }
         return temp;
     }

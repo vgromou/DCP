@@ -2,12 +2,14 @@ package actions;
 
 import functions.Function;
 import textManipulators.Analyzer;
+import tree.GenericTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Multiplication implements Function {
     private StringBuilder function;
+    private GenericTreeNode<StringBuilder> functionNode = new GenericTreeNode<>();
 
     @Override
     public StringBuilder getFunction() {
@@ -23,6 +25,10 @@ public class Multiplication implements Function {
         this.function = function;
     }
 
+    public void setFunctionNode(GenericTreeNode<StringBuilder> functionNode) {
+        this.functionNode = functionNode;
+    }
+
     @Override
     public StringBuilder differentiate(){
         StringBuilder result = new StringBuilder();
@@ -33,6 +39,7 @@ public class Multiplication implements Function {
             StringBuilder temp = new StringBuilder(functions.get(i).toString());
             difFunctions.add(Differentiation.difExpression(temp));
         }
+
         for (int i = 0; i < difFunctions.size(); i++) {
             for (int j = 0; j < functions.size(); j++) {
                 if (j != i) {
