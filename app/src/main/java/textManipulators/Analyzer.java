@@ -26,7 +26,6 @@ public abstract class Analyzer {
             return;
         }
 
-
         List<StringBuilder> children = crush(node.getData());
 
         for (StringBuilder stringBuilder : children) {

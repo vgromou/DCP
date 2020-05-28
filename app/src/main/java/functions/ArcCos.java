@@ -19,7 +19,7 @@ public class ArcCos implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new Stringbuilder ("-1÷(1-");
+        StringBuilder result = new StringBuilder("-1÷(1-");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
         result.append("(").append(arg).append(")^2)^(1÷2)");

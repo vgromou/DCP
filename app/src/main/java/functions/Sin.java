@@ -20,7 +20,7 @@ public class Sin implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "cos(";
+        StringBuilder result = new StringBuilder("cos(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
 

@@ -18,7 +18,7 @@ public class Cotan implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "-1÷(sin(";
+        StringBuilder result = new StringBuilder("-1÷(sin(");
 
        StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
        result.append(arg).append("))^2");

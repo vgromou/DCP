@@ -18,7 +18,7 @@ public class Exponential implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "e^(";
+        StringBuilder result = new StringBuilder("e^(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
 

@@ -18,7 +18,7 @@ public class Th implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "(1÷(ch(";
+        StringBuilder result = new StringBuilder("(1÷(ch(");
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
 

@@ -18,7 +18,7 @@ public class Cos implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "-sin(";
+        StringBuilder result = new StringBuilder("-sin(");
 
        StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
        result.append(arg).append(")");

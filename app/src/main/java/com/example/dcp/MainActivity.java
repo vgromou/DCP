@@ -116,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
     public void keyboardSwitcher(View v){
         Button digits = (Button) findViewById(R.id.switch_digits);
         Button main = (Button) findViewById(R.id.switch_main);
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             editText.setSelection(start - 1);
         }
     }
+
     void putIntoText(String symbol, boolean isSpecialSymbol){
         //TODO: Можно сделать подстановку скобок у cos, ln и т.п. (по типу "sin(" или там "arctg(")
         int position = editText.getSelectionStart();

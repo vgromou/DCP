@@ -18,7 +18,7 @@ public class Tan implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "1÷(cos(";
+        StringBuilder result = new StringBuilder("1÷(cos(");
 
        StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
 
