@@ -20,19 +20,11 @@ public class Sin implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = "(cos(x))";
+        StringBuilder result = "cos(";
 
-        /*StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
-        StringBuilder difArg = new StringBuilder();
-        if(arg.toString().contains("x")){
-            difArg.append("(");
-            StringBuilder temp = new StringBuilder(arg.toString());
-            difArg.append(Differentiation.difExpression(temp));
-            difArg.append(")");
-            difArg.append("·");
-        }
-        result.insert(0, difArg);
-        result.append(arg).append("))");*/
+        StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
+
+        result.append(arg).append(")");
 
         return result;
     }
