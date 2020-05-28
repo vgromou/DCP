@@ -25,8 +25,8 @@ public class Logarithm implements Function {
 
         // Натуральный логарфим
         if (function.charAt(1) == 'n'){
-            result.append("(1÷(");
-            StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
+            Stringbuilder result = "(1÷(x))";
+           /* StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
             StringBuilder difArg = new StringBuilder();
             if(arg.toString().contains("x")){
                 difArg.append("(");
@@ -36,16 +36,16 @@ public class Logarithm implements Function {
                 difArg.append("·");
             }
             result.insert(0, difArg);
-            result.append(arg).append("))");
+            result.append(arg).append("))"); */
         }
 
         // Логарифм
         if (function.charAt(2) == 'g') {
-            result.append("(1÷((");
+            result.append("(1÷(x·ln(";
 
-            StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
+          //  StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
             StringBuilder baseOfTheLogarithm = new StringBuilder(function.substring(function.indexOf("g") + 1, function.lastIndexOf("(")));
-            StringBuilder difArg = new StringBuilder("");
+           /* StringBuilder difArg = new StringBuilder("");
             if(arg.toString().contains("x")){
                 difArg.append("(");
                 StringBuilder temp = new StringBuilder(arg.toString());
@@ -53,8 +53,8 @@ public class Logarithm implements Function {
                 difArg.append(")");
                 difArg.append("·");
             }
-            result.insert(0, difArg);
-            result.append(arg).append(")·ln").append(baseOfTheLogarithm).append("))");
+            result.insert(0, difArg); */
+            result.append(baseOfTheLogarithm).append("))");
         }
 
         return result;

@@ -18,9 +18,9 @@ public class ArcTan implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new StringBuilder("(1÷(1+");
+        StringBuilder result = "(1÷(1+x^2))";
 
-        StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
+        /*StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
         StringBuilder difArg = new StringBuilder();
         if(arg.toString().contains("x")){
             difArg.append("(");
@@ -30,7 +30,7 @@ public class ArcTan implements Function {
             difArg.append("·");
         }
         result.insert(0, difArg);
-        result.append("(").append(arg).append(")^2))");
+        result.append("(").append(arg).append(")^2))");*/
 
         return result;
     }

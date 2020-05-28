@@ -27,8 +27,7 @@ public class GenericTreeNode<T> {
     }
 
     public int getDepth() {
-        return this.depth;
-    }
+        return this.depth; }
 
     public GenericTreeNode<T> getParent() {
         return this.parent;

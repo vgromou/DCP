@@ -18,9 +18,9 @@ public class Ch implements Function {
 
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new StringBuilder("(sh(");
+        StringBuilder result = "(sh(x))";
 
-        StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
+       /* StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
         StringBuilder difArg = new StringBuilder();
         if(arg.toString().contains("x")){
             difArg.append("(");
@@ -30,7 +30,7 @@ public class Ch implements Function {
             difArg.append("·");
         }
         result.insert(0, difArg);
-        result.append(arg).append("))");
+        result.append(arg).append("))");*/
 
         return result;
     }
