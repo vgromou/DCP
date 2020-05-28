@@ -2,6 +2,7 @@ package actions;
 
 import functions.Function;
 import textManipulators.Analyzer;
+import tree.GenericTree;
 import tree.GenericTreeNode;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 public class Multiplication implements Function {
     private StringBuilder function;
     private GenericTreeNode<StringBuilder> functionNode = new GenericTreeNode<>();
+    private List<StringBuilder> children = new ArrayList<>();
 
     @Override
     public StringBuilder getFunction() {
@@ -29,37 +31,20 @@ public class Multiplication implements Function {
         this.functionNode = functionNode;
     }
 
+    public void setChildren(){
+        List<GenericTreeNode<StringBuilder>> temp = functionNode.getChildren();
+        for (int i = 0; i < temp.size(); i++) {
+            children.add(temp.get(i).getData());
+        }
+    }
+
+    public List<StringBuilder> getChildren() {
+        return children;
+    }
+
     @Override
     public StringBuilder differentiate(){
-        StringBuilder result = new StringBuilder();
-        List<StringBuilder> functions = Analyzer.crushMultiplication(function);
-        List<StringBuilder> difFunctions = new ArrayList<>();
-
-        for (int i = 0; i < functions.size(); i++) {
-            StringBuilder temp = new StringBuilder(functions.get(i).toString());
-            difFunctions.add(Differentiation.difExpression(temp));
-        }
-
-        for (int i = 0; i < difFunctions.size(); i++) {
-            for (int j = 0; j < functions.size(); j++) {
-                if (j != i) {
-                    if (functions.get(i).charAt(0) == '-') {
-                        functions.get(i).insert(0, '(');
-                        functions.get(i).append(")");
-                    }
-                    result.append(functions.get(j));
-                }
-                else {
-                    result.append(difFunctions.get(i));
-                }
-                if (j != functions.size() - 1) {
-                    result.append("·");
-                }
-            }
-            if(i != functions.size()-1) {
-                result.append("+");
-            }
-        }
-        return result;
+        function.insert(0, "M");
+        return function;
     }
 }

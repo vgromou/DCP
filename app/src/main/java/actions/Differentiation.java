@@ -2,6 +2,7 @@ package actions;
 
 import textManipulators.Analyzer;
 import functions.*;
+import textManipulators.Simplifier;
 import tree.GenericTree;
 import tree.GenericTreeNode;
 
@@ -37,7 +38,8 @@ public abstract class Differentiation {
         System.out.println(tree.toStringWithDepth());
         System.out.println(expression);
 
-        GenericTree<Function> treeFunc = buildTree(tree);
+        ArrayList<Multiplication> multiList = new ArrayList<>();
+        GenericTree<Function> treeFunc = buildTree(tree, multiList);
         //Проверка
         System.out.println(treeFunc.toStringWithDepth());
 
@@ -55,26 +57,39 @@ public abstract class Differentiation {
         difTree(treeFunc.getRoot(), treeRes.getRoot());
         System.out.println(treeRes.toStringWithDepth());
 
-        System.out.println(createAnswer(treeRes));
-        return createAnswer(treeRes);
+        System.out.println(createAnswer(treeRes, treeFunc, multiList));
+
+        StringBuilder answer = createAnswer(treeRes, treeFunc, multiList);
+
+        for (int i = 0; i < answer.length() - 1; i++) {
+            if(answer.charAt(i) == '-'){
+                answer.setCharAt(i, '−');
+            }
+        }
+        Simplifier.simplify(answer);
+        return answer;
     }
 
-    private static GenericTree<Function> buildTree(GenericTree<StringBuilder> tree){
+    private static GenericTree<Function> buildTree(GenericTree<StringBuilder> tree, ArrayList<Multiplication> multiList){
         GenericTree<Function> treeFunc = new GenericTree<>();
         GenericTreeNode<Function> rootFunc = new GenericTreeNode<>(Analyzer.distribute(tree.getRoot().getData()));
         treeFunc.setRoot(rootFunc);
-        build(treeFunc.getRoot(), tree.getRoot(), tree);
+        build(treeFunc.getRoot(), tree.getRoot(), tree, multiList);
 
         return treeFunc;
     }
 
-    private static void build(GenericTreeNode<Function> node, GenericTreeNode<StringBuilder> nodeStr, GenericTree<StringBuilder> treeStr){
+    private static void build(GenericTreeNode<Function> node, GenericTreeNode<StringBuilder> nodeStr, GenericTree<StringBuilder> treeStr, ArrayList<Multiplication> multiList){
         List<GenericTreeNode<StringBuilder>> children = nodeStr.getChildren();
 
         for (GenericTreeNode<StringBuilder> child : children) {
             GenericTreeNode<Function> temp = new GenericTreeNode<>(Analyzer.distribute(child.getData()));
             node.addChild(temp);
-            build(temp, child, treeStr);
+            if(temp.getData() instanceof Multiplication){
+                ((Multiplication) temp.getData()).setFunctionNode(child);
+                multiList.add((Multiplication) temp.getData());
+            }
+            build(temp, child, treeStr, multiList);
         }
     }
 
@@ -99,7 +114,7 @@ public abstract class Differentiation {
         }
     }
 
-    private static StringBuilder createAnswer(GenericTree<StringBuilder> tree){
+    private static StringBuilder createAnswer(GenericTree<StringBuilder> tree, GenericTree<Function> treeFunc, ArrayList<Multiplication> multiList){
         /*
          * Ответ формируется как сумма детей * продифференцированное выражение
          * Избавляемся от листьев, перекидывая их как сомножитель к родителю
@@ -124,17 +139,53 @@ public abstract class Differentiation {
             Iterator<GenericTreeNode<StringBuilder>> it = leafs.iterator();
             GenericTreeNode<StringBuilder> leaf = it.next();
             GenericTreeNode<StringBuilder> key = leaf;
-            key.getParent().setData(key.getParent().getData().insert(0, "(").append(")"));
-            StringBuilder childFactor = key.getParent().getData();
-            childFactor.append("·(").append(key.getData());
+            if(key.getParent().getData().toString().contains("M")){
+                StringBuilder childFactor = key.getParent().getData();
+                childFactor.deleteCharAt(childFactor.indexOf("M"));
+                Multiplication thisFunc = new Multiplication(new StringBuilder(""));
+                for (int i = 0; i < multiList.size(); i++) {
+                    thisFunc = multiList.get(i);
+                    if(thisFunc.getFunction().toString().contains(childFactor.toString())){
+                        break;
+                    }
+                }
+                thisFunc.setChildren();
+                List<StringBuilder> children = thisFunc.getChildren();
+                List<GenericTreeNode<StringBuilder>> tempChildren = key.getParent().getChildren();
+                childFactor.delete(0, childFactor.length());
+                for (int i = 0; i < tempChildren.size(); i++) {
+                    childFactor.append("(").append(tempChildren.get(i)).append(")");
+                    for (int j = 0; j < children.size(); j++) {
+                        if(i == j) continue;;
+                        childFactor.append("·(").append(children.get(j)).append(")");
+                    }
+                    if(i != tempChildren.size()-1){
+                        childFactor.append("+");
+                    }
+                }
+
+            }
+            else {
+                key.getParent().setData(key.getParent().getData().insert(0, "(").append(")"));
+                StringBuilder childFactor = key.getParent().getData();
+                List<GenericTreeNode<StringBuilder>> tempChildren = key.getParent().getChildren();
+                childFactor.append("·(");
+            /*
             for (; it.hasNext(); ) {
                 leaf = it.next();
                 if(key.getParent().equals(leaf.getParent())){
                     childFactor.append("+").append(leaf.getData());
                 }
             }
-            childFactor.append(")");
-
+             */
+                for (int i = 0; i < tempChildren.size(); i++) {
+                    childFactor.append(tempChildren.get(i).getData());
+                    if (i != tempChildren.size() - 1) {
+                        childFactor.append("+");
+                    }
+                }
+                childFactor.append(")");
+            }
             if(key.getParent().equals(root)){
                 break;
             }
@@ -143,9 +194,26 @@ public abstract class Differentiation {
         } while(true);
 
         List<GenericTreeNode<StringBuilder>> rootChildren = root.getChildren();
-        answer.append(rootChildren.get(0));
-        for (int i = 1; i < rootChildren.size(); i++) {
-            answer.append("+").append(rootChildren.get(i));
+
+        if(!(treeFunc.getRoot().getData() instanceof Multiplication)) {
+            answer.append(rootChildren.get(0));
+            for (int i = 1; i < rootChildren.size(); i++) {
+                answer.append("+").append(rootChildren.get(i));
+            }
+        }
+        else{
+            List<GenericTreeNode<Function>> funcRootChildren = treeFunc.getRoot().getChildren();
+            for (int i = 0; i < rootChildren.size(); i++) {
+                answer.append(rootChildren.get(i));
+                for (int j = 0; j < funcRootChildren.size(); j++) {
+                    if(j == i) continue;
+                    answer.append("·(").append(funcRootChildren.get(j).getData().getFunction().toString()).append(")");
+                }
+                if(i != rootChildren.size()-1) {
+                    answer.append("+");
+                }
+            }
+
         }
         System.out.println("/*****" + answer);
         return answer;
