@@ -19,7 +19,7 @@ public abstract class Simplifier {
         reduceMinuses(expression);
         deleteUnnecessaryPluses(expression);
         reduceOnes(expression);
-        reduceFarBrackets(expression);
+        //reduceFarBrackets(expression);
         //reduceDoubleBrackets(expression);
     }
 
