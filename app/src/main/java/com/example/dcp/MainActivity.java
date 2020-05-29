@@ -275,7 +275,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         StringBuilder answer;
         //TODO: Когда с основными ошибками разберетесь, сделать тут try-catch, чтобы выводить Error в случае неправильной записи
-        answer = Differentiation.difExpression(strBuildExpression);
+        try {
+            answer = Differentiation.difExpression(strBuildExpression);
+        }
+        catch (Exception e){
+            answer = new StringBuilder("Error");
+        }
         editText.setText(answer);
         editText.setSelection(answer.length());
         textView.setText(strExpression);

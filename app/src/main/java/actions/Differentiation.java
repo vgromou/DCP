@@ -156,8 +156,9 @@ public abstract class Differentiation {
                 for (int i = 0; i < tempChildren.size(); i++) {
                     childFactor.append("(").append(tempChildren.get(i)).append(")");
                     for (int j = 0; j < children.size(); j++) {
-                        if(i == j) continue;;
-                        childFactor.append("·(").append(children.get(j)).append(")");
+                        if(i != j) {
+                            childFactor.append("·(").append(children.get(j)).append(")");
+                        }
                     }
                     if(i != tempChildren.size()-1){
                         childFactor.append("+");

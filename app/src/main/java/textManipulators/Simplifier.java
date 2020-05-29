@@ -19,7 +19,8 @@ public abstract class Simplifier {
         reduceMinuses(expression);
         deleteUnnecessaryPluses(expression);
         reduceOnes(expression);
-        reduceDoubleBrackets(expression);
+        reduceFarBrackets(expression);
+        //reduceDoubleBrackets(expression);
     }
 
     private static void reduceConst (StringBuilder expression){
@@ -48,6 +49,7 @@ public abstract class Simplifier {
         }
     }
 
+    //TODO: Сделать нормально
     private static void reduceOnes (StringBuilder expression){
         while(expression.toString().contains("·(1)")){
             int index = expression.indexOf("·(1)");
@@ -57,6 +59,23 @@ public abstract class Simplifier {
             int index = expression.indexOf("(1)·");
             expression.replace(index, index + 4, "");
         }
+        while(expression.toString().contains("·((1))")){
+            int index = expression.indexOf("·((1))");
+            expression.replace(index, index + 6, "");
+        }
+        while(expression.toString().contains("(((1)))·")){
+            int index = expression.indexOf("(((1)))·");
+            expression.replace(index, index + 6, "");
+        }
+        while(expression.toString().contains("·(((1)))")){
+            int index = expression.indexOf("·(((1)))");
+            expression.replace(index, index + 8, "");
+        }
+        while(expression.toString().contains("(((1)))·")){
+            int index = expression.indexOf("(((1)))·");
+            expression.replace(index, index + 8, "");
+        }
+
     }
 
     private static void reduceDoubleBrackets (StringBuilder expression){
@@ -84,5 +103,19 @@ public abstract class Simplifier {
 
 
         }
+    }
+
+    private static void reduceFarBrackets (StringBuilder expression){
+        if(expression.charAt(0) != '(') return;
+        int count = 1;
+        for (int i = 1; i < expression.length(); i++) {
+            if(expression.charAt(i) == '('){
+                count++;
+            }
+            if(expression.charAt(i) == ')'){
+                count--;
+            }
+        }
+        if(count == 0) expression.deleteCharAt(expression.length()-1).deleteCharAt(0);
     }
 }
