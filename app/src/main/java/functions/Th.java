@@ -24,7 +24,7 @@ public class Th implements Function {
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
 
-        result.append(arg).append("))^2");
+        result.append(arg).append("))^2)");
 
         if(isNegative){
             result.insert(0, '-');

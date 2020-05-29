@@ -95,7 +95,7 @@ public class Power implements Function {
         }
 
         if(arg.toString().contains("x")){
-            result.append(power).append("·(").append(arg).append(")^").append(newPower);
+            result.append(power).append("·(").append(arg).append(")^").append(newPower).append(")");
         }
         else {
             result.append(arg);
