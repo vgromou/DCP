@@ -5,6 +5,8 @@ import actions.Differentiation;
 public class Logarithm implements Function {
 
     private StringBuilder function;
+    private boolean isNegative;
+
 
     public StringBuilder getFunction() {
         return function;
@@ -15,6 +17,7 @@ public class Logarithm implements Function {
     }
     public Logarithm(StringBuilder function){
         this.function = function;
+        isNegative = (function.charAt(0) == '-');
     }
 
     @Override
@@ -40,6 +43,10 @@ public class Logarithm implements Function {
             StringBuilder baseOfTheLogarithm = new StringBuilder(function.substring(function.indexOf("g") + 1, function.lastIndexOf("(")));
 
             result.append("(").append(arg).append(")").append("·ln").append(baseOfTheLogarithm).append(")");
+        }
+
+        if(isNegative){
+            result.insert(0, '-');
         }
 
         return result;

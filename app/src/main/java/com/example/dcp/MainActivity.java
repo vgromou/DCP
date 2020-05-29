@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (isAtTheBeginning && !symbol.equals("−")){
                 return;
             }
+
             if (symbol.equals(".") && !canPointBeEntered(position, beforePosition, afterPosition, text.toString())){
                 return;
             }

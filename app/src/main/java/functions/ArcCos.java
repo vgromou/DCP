@@ -4,6 +4,7 @@ import actions.Differentiation;
 
 public class ArcCos implements Function {
     private StringBuilder function;
+    private boolean isNegative;
 
     public StringBuilder getFunction() {
         return function;
@@ -15,7 +16,8 @@ public class ArcCos implements Function {
 
   public ArcCos(StringBuilder function){
         this.function = function;
-    }
+        isNegative = (function.charAt(0) == '-');
+  }
 
     @Override
     public StringBuilder differentiate(){
@@ -23,6 +25,10 @@ public class ArcCos implements Function {
 
         StringBuilder arg = new StringBuilder(function.substring(function.indexOf("(") + 1, function.lastIndexOf(")")));
         result.append("(").append(arg).append(")^2)^(1÷2)");
+
+        if(isNegative){
+            result.insert(0, '-');
+        }
         return result;
     }
 

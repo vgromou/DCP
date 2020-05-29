@@ -13,6 +13,7 @@ public class Multiplication implements Function {
     private GenericTreeNode<StringBuilder> functionNode = new GenericTreeNode<>();
     private List<StringBuilder> children = new ArrayList<>();
 
+
     @Override
     public StringBuilder getFunction() {
         return function;

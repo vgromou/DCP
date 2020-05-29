@@ -4,6 +4,7 @@ import actions.Differentiation;
 
 public class Sin implements Function {
     private StringBuilder function;
+    private boolean isNegative;
 
     public StringBuilder getFunction() {
         return function;
@@ -16,6 +17,7 @@ public class Sin implements Function {
 
     public Sin(StringBuilder function){
         this.function = function;
+        isNegative = (function.charAt(0) == '-');
     }
 
     @Override
@@ -26,7 +28,12 @@ public class Sin implements Function {
 
         result.append(arg).append(")");
 
+        if(isNegative){
+            result.insert(0, '-');
+        }
+
         return result;
     }
+
 
 }

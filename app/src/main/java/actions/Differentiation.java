@@ -45,6 +45,7 @@ public abstract class Differentiation {
 
         GenericTree<StringBuilder> treeRes = new GenericTree<>();
         treeRes.setRoot(new GenericTreeNode<>(new StringBuilder(" ")));
+
         /* Проверка
         treeRes.getRoot().addChild(new GenericTreeNode<>(new StringBuilder("ln(x)")));
         treeRes.getRoot().addChild(new GenericTreeNode<>(new StringBuilder("ctg(tg(x + 1))")));
@@ -66,6 +67,7 @@ public abstract class Differentiation {
                 answer.setCharAt(i, '−');
             }
         }
+
         Simplifier.simplify(answer);
         return answer;
     }

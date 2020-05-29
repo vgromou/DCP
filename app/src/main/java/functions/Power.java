@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 public class Power implements Function {
     private StringBuilder function;
+    private boolean isNegative;
 
     public StringBuilder getFunction() {
         return function;
@@ -18,6 +19,7 @@ public class Power implements Function {
 
     public Power(StringBuilder function){
         this.function = function;
+        isNegative = (function.charAt(0) == '-');
     }
 
     @Override
@@ -97,6 +99,10 @@ public class Power implements Function {
         }
         else {
             result.append(arg);
+        }
+
+        if(isNegative){
+            result.insert(0, '-');
         }
 
         return result;

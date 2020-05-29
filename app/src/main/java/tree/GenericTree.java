@@ -40,7 +40,6 @@ public class GenericTree<T> {
 
         return numberOfNodes;
     }
-
     public boolean exists(T dataToFind) {
         return (find(dataToFind) != null);
     }

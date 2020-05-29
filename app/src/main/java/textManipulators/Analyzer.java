@@ -38,6 +38,7 @@ public abstract class Analyzer {
             children = crush(node.getData());
             System.out.println(Arrays.toString(children.toArray()));
         }
+
         else{
             children = crushMultiplication(node.getData());
         }
