@@ -29,7 +29,6 @@ public class Sh implements Function {
         if(isNegative){
             result.insert(0, '-');
         }
-        
 
         return result;
     }
